@@ -1,2 +1,2 @@
 FROM nginx:latest
-MAINTAINER ted027
+LABEL maintainer "ted027"
