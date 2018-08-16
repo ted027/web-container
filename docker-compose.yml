@@ -1,8 +1,30 @@
 version: '3'
 services:
-  nginx:
-    build: ./containers/nginx
+  web:
+    build: ./web
     ports:
       - "80:80"
+    depends_on:
+      - app
     volumes:
-      - ./public:/usr/share/nginx/html
+      - ./web/server.conf:/etc/nginx/conf.d/server.conf
+      - ./public/html:/var/www/html
+  app:
+    build: ./app
+    env_file: .env
+    environment:
+      DATABASE_HOST: db
+    depends_on:
+      - db
+    volumes:
+      - ./public/html:/var/www/html
+  db:
+    build: ./db
+    env_file: .env
+    ports:
+      - "3306:3306"
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/initial.sql:/docker-entrypoint-initdb.d/initial.sql
+volumes:
+  db-data:
