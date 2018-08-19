@@ -1,6 +1,5 @@
 CREATE TABLE `scores` (
-  `id` int(20) unsigned NOT NULL AUTO_INCREMENT,
-  `date` datetime NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `scores` json DEFAULT NULL,
   PRIMARY KEY(`id`)
 );
